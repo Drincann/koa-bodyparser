@@ -1,7 +1,5 @@
 "use strict";
 
-const log = require('./logger');
-
 module.exports = ({
   limit
 } = {}) => {
@@ -11,7 +9,7 @@ module.exports = ({
     limit = (_limit = limit) !== null && _limit !== void 0 ? _limit : 0B100000000000000000; // 128 kb
 
     if (ctx.get('content-length') > limit) {
-      log.error(new Error('request entity too large'));
+      throw new Error('request entity too large');
     } else {
       try {
         let raw = await getBody(ctx.req, limit);
